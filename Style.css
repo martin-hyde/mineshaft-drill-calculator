@@ -1,0 +1,119 @@
+#Drill_Image {
+    width: 25%;
+    position: absolute;
+    left: 33%;
+}
+
+#First_Latent_Breaker {
+    display: none;
+    margin: 32px 0;
+}
+
+#Second_Latent_Breaker {
+    display: none;
+    margin: 40px 0;
+}
+
+#Third_Latent_Breaker {
+    display: none;
+    margin: 16px 0;
+}
+
+#Depth_Label {
+    font-family: 'Trebuchet MS';
+    font-size: 75%;
+}
+
+#Depth_Input {
+    font-family: 'Trebuchet MS';
+    width: 20%;
+    border-radius: 0%;
+    border-style: solid;
+}
+
+#First_Output_Label {
+    top: 34px;
+}
+
+#Second_Output_Label {
+    top: 58px;
+}
+
+#Third_Output_Label {
+    top: 82px;
+}
+
+#Fourth_Output_Label {
+    top: 106px;
+}
+
+#Output_Title {
+    position: absolute;
+    left: 60%;
+    top: 8px;
+}
+
+#Output_Breaker {
+    position: absolute;
+    left: 60%;
+    top: 30px
+}
+
+.Title {
+    font-family: 'Trebuchet MS';
+    font-size: 120%;
+}
+
+.Title_Breaker {
+    width: 29.8%;
+    margin: 0;
+}
+
+.Drillbit_Info {
+    font-family: 'Trebuchet MS';
+    font-size: 75%;
+}
+
+.Output_Label {
+    position: absolute;
+    display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    left: 60%;
+    font-family: 'Trebuchet MS';
+    font-size: 90%;
+}
+
+.Dropdown_Box {
+    position: relative;
+    display: inline-block;
+    width: 30%;
+}
+
+.Dropdown_Button {
+    font-family: 'Trebuchet MS';
+    font-size: 75%;
+    width: 100%;
+    border: none;
+}
+
+.Dropdown_Container {
+    display: none;
+    position: absolute;
+    min-width: 100%;
+    overflow: none;
+}
+
+.Dropdown_Container button {
+    font-family: 'Trebuchet MS';
+    font-size: 75%;
+    width: 100%;
+    display: block;
+    border: none;
+}
+
+.show {
+    display: block;
+}
