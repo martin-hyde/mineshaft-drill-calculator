@@ -2,4 +2,6 @@ Mineshaft drill calculator app for the [Industrialist Wiki](https://industrialis
 
 Credits
 =
-Originally created by [Luna Doggo](https://industrialist.fandom.com/wiki/User:TheRealArcticSnowLunaDoggo).
+Backend: [Luna Doggo](https://industrialist.fandom.com/wiki/User:TheRealArcticSnowLunaDoggo)
+
+Frontend: [@nextrg](https://github.com/nextrg)
