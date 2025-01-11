@@ -1,120 +1,139 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Mineshaft Drill Calculator</title>
-        <link rel="stylesheet" href="Style.css">
-        <script src="Core.js"></script> 
-    </head>
-    <body>
-        <img src="Drill.png" id="Drill_Image" alt=":3">
-        <label class="Title">Settings</label>
-        <hr class="Title_Breaker">
-        <div id="Drillbit_Select" class="Dropdown_Box">
-            <button id="Drillbit_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(0)">Drillhead — Copper</button>
-            <div id="Drillbit_Content" class="Dropdown_Container">
-                <button onclick="Swap_Drillbit(0)">Copper</a>
-                <button onclick="Swap_Drillbit(1)">Iron</a>
-                <button onclick="Swap_Drillbit(2)">Steel</a>
-                <button onclick="Swap_Drillbit(3)">Tungsten</a>
+
+<head>
+    <title>Mineshaft Drill Calculator</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="drill.png">
+</head>
+
+<body>
+    <div class="main">
+        <img src="drill.png" id="Drill_Image" alt=":3">
+        <h1>Mineshaft Drill Calculator</h1>
+    </div>
+    <div class="settings">
+        <label class="Title" style="border-bottom: none;">Settings</label>
+        <div class="boxes">
+            <div id="Drillbit_Select" class="Dropdown_Box">
+                <button id="Drillbit_Button" class="Dropdown_Button copper" onclick="Toggle_Dropdown(0)">Drillhead —
+                    Copper</button>
+                <div id="Drillbit_Content" class="Dropdown_Container">
+                    <button class="copper" onclick="Swap_Drillbit(0)">Copper</a>
+                        <button class="iron" onclick="Swap_Drillbit(1)">Iron</a>
+                            <button class="steel" onclick="Swap_Drillbit(2)">Steel</a>
+                                <button class="tungsten" onclick="Swap_Drillbit(3)">Tungsten</a>
+                </div>
+            </div>
+            <div id="Acid_Select" class="Dropdown_Box">
+                <button id="Acid_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(1)">Acid — None</button>
+                <div id="Acid_Content" class="Dropdown_Container none">
+                    <button class="none" onclick="Swap_Acid(0)">None</a>
+                        <button class="water" onclick="Swap_Acid(1)">Water</a>
+                            <button class="acetic" onclick="Swap_Acid(2)">Acetic</a>
+                                <button class="sulphuric" onclick="Swap_Acid(3)">Sulphuric</a>
+                                    <button class="hydrochloric" onclick="Swap_Acid(4)">Hydrochloric</a>
+                </div>
+            </div>
+            <div id="Oil_Select" class="Dropdown_Box">
+                <button id="Oil_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(2)">Oil — None</button>
+                <div id="Oil_Content" class="Dropdown_Container none">
+                    <button class="none" onclick="Swap_Oil(0)">None</a>
+                        <button class="machineoil" onclick="Swap_Oil(1)">Machine Oil</a>
+                </div>
             </div>
         </div>
-        <br>
-        <br id="First_Latent_Breaker">
-        <div id="Acid_Select" class="Dropdown_Box">
-            <button id="Acid_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(1)">Acid — None</button>
-            <div id="Acid_Content" class="Dropdown_Container">
-                <button onclick="Swap_Acid(0)">None</a>
-                <button onclick="Swap_Acid(1)">Water</a>
-                <button onclick="Swap_Acid(2)">Acetic</a>
-                <button onclick="Swap_Acid(3)">Sulphuric</a>
-                <button onclick="Swap_Acid(4)">Hydrochloric</a>
-            </div>
+        <div class="depth_section">
+            <label class="depthlabel">Depth:</label>
+            <label id="Depth_Label" style="display: none;">Depth — 100m</label>
+            <input type="text" id="Depth_Input" value="100">
         </div>
-        <br>
-        <br id="Second_Latent_Breaker">
-        <div id="Oil_Select" class="Dropdown_Box">
-            <button id="Oil_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(2)">Oil — None</button>
-            <div id="Oil_Content" class="Dropdown_Container">
-                <button onclick="Swap_Oil(0)">None</a>
-                <button onclick="Swap_Oil(1)">Machine</a>
-            </div>
+    </div>
+    <div class="information">
+        <div class="info">
+            <label class="Title">Drillhead Info</label>
+            <label id="Deterioration_Label" class="Drillbit_Info">Deterioration Rate: 0.0037%/s</label>
+            <label id="Lifetime_Label" class="Drillbit_Info">Lifetime: 7.5h</label>
+            <label id="Cycle_Label" class="Drillbit_Info">Cycle Time: 7.5h</label>
+            <label id="Cycling_Label" class="Drillbit_Info">Replacement Time: 16s</label>
+            <label id="Efficiency_Label" class="Drillbit_Info">Efficiency: <b
+                    style="color: rgb(5.967000000000022, 249.033, 0);">97.66%</b></label>
+            <br>
+            <label class="Title">Consumption Info</label>
+            <label id="Drillbit_Label" class="Drillbit_Info dddd">Copper Drillhead: 0.00004u/s (average), 0.00004u/s
+                (active)</label>
+            <label id="Materials_Label" class="Drillbit_Info dddd">Copper Ingot: 0.02591u/s (average), 0.02593u/s
+                (active)</label>
+            <label id="Acid_Label" class="Drillbit_Info">No Acid: 0L/s (average), 0L/s (active)</label>
+            <label id="Oil_Label" class="Drillbit_Info">Machine Oil: 0L/s (average), 0L/s (active)</label>
+            <label id="Power_Label" class="Drillbit_Info">Power: 3.1MMF/s (average), 3.1MMF/s (active)</label>
+            <br>
+            <label id="Output_Title" class="Title">Outputs</label>
+            <label id="First_Output_Label" class="Output_Label">Rich Soil: 1.1u/s (average), 1.1u/s (active)</label>
+            <label id="Second_Output_Label" class="Output_Label">Soil: 3.3u/s (average), 3.3u/s (active)</label>
+            <label id="Third_Output_Label" class="Output_Label">Gravel: 3.3u/s (average), 3.3u/s (active)</label>
+            <label id="Fourth_Output_Label" class="Output_Label">Sand: 3.3u/s (average), 3.3u/s (active)</label>
         </div>
-        <br>
-        <br id="Third_Latent_Breaker">
-        <label id="Depth_Label">Depth — 100m</label>
-        <br>
-        <input type="text" id="Depth_Input" value="100">
-        <br>
-        <label id="Output_Title" class="Title">Outputs</label>
-        <hr id="Output_Breaker" class="Title_Breaker">
-        <label id="First_Output_Label" class="Output_Label">Rich Soil: 1.1u/s (average), 1.1u/s (active)</label>
-        <label id="Second_Output_Label" class="Output_Label">Soil: 3.3u/s (average), 3.3u/s (active)</label>
-        <label id="Third_Output_Label" class="Output_Label">Gravel: 3.3u/s (average), 3.3u/s (active)</label>
-        <label id="Fourth_Output_Label" class="Output_Label">Sand: 3.3u/s (average), 3.3u/s (active)</label>
-        <br>
-        <label class="Title">Drillhead Info</label>
-        <hr class="Title_Breaker">
-        <label id="Deterioration_Label" class="Drillbit_Info">Deterioration Rate: 0.0037%/s</label>
-        <br>
-        <label id="Lifetime_Label" class="Drillbit_Info">Lifetime: 7.5h</label>
-        <br>
-        <label id="Cycle_Label" class="Drillbit_Info">Cycle Time: 7.5h</label>
-        <br>
-        <label id="Cycling_Label" class="Drillbit_Info">Replacement Time: 16s</label>
-        <br>
-        <label id="Efficiency_Label" class="Drillbit_Info">Efficiency: 99.94%</label>
-        <br>
-        <br>
-        <label class="Title">Consumption Info</label>
-        <hr class="Title_Breaker">
-        <label id="Drillbit_Label" class="Drillbit_Info">Copper Drillhead: 0.00004u/s (average), 0.00004u/s (active)</label>
-        <br>
-        <label id="Materials_Label" class="Drillbit_Info">Copper Ingot: 0.02591u/s (average), 0.02593u/s (active)</label>
-        <br>
-        <label id="Acid_Label" class="Drillbit_Info">No Acid: 0L/s (average), 0L/s (active)</label>
-        <br>
-        <label id="Oil_Label" class="Drillbit_Info">Machine Oil: 0L/s (average), 0L/s (active)</label>
-        <br>
-        <label id="Power_Label" class="Drillbit_Info">Power: 3.1MMF/s (average), 3.1MMF/s (active)</label>
-        <script>
-            window.onload = function () {
-                document.getElementById("Depth_Input").value = "100m";
-            };
-            document.getElementById("Depth_Input").addEventListener('blur', () => {
-                var Valid_Depths = [100, 300]
-                for (var Counter = 3; Counter < 7; Counter++) {
-                    Valid_Depths.push(Counter * 300);
+    </div>
+    <p class="disclaimer">Calculator made by <a
+            href="https://industrialist.fandom.com/wiki/User:TheRealArcticSnowLunaDoggo">Luna Doggo</a>
+    </p>
+    <script>
+        window.onload = function () {
+            document.getElementById("Depth_Input").value = "100m";
+        };
+        function calculateDepth() {
+            var Valid_Depths = [100, 300]
+            for (var Counter = 3; Counter < 7; Counter++) {
+                Valid_Depths.push(Counter * 300);
+            }
+            for (var Counter = 10; Counter < 41; Counter++) {
+                Valid_Depths.push(Counter * 200);
+            }
+            var Input_String = document.getElementById("Depth_Input").value;
+            var Sanitised_String = "";
+            var Finalised_String = "";
+            for (var Counter = 0; Counter < Input_String.length; Counter++) {
+                if (!isNaN(Input_String[Counter]) && Input_String[Counter].trim() != '') {
+                    Sanitised_String = Sanitised_String + Input_String[Counter];
                 }
-                for (var Counter = 10; Counter < 41; Counter++) {
-                    Valid_Depths.push(Counter * 200);
+            }
+            if (Sanitised_String == "") {
+                Sanitised_String = "0";
+            }
+            var Difference = Infinity;
+            var Selected_Depth = 0;
+            var Selected_Interval = 0;
+            for (var Counter = 0; Counter < Valid_Depths.length; Counter++) {
+                if (Math.abs(Number(Sanitised_String) - Valid_Depths[Counter]) < Difference) {
+                    Difference = Math.abs(Number(Sanitised_String) - Valid_Depths[Counter]);
+                    Selected_Depth = Valid_Depths[Counter];
+                    Selected_Interval = Counter;
                 }
-                var Input_String = document.getElementById("Depth_Input").value;
-                var Sanitised_String = "";
-                var Finalised_String = "";
-                for (var Counter = 0; Counter < Input_String.length; Counter++) {
-                    if (!isNaN(Input_String[Counter]) && Input_String[Counter].trim() != '') {
-                        Sanitised_String = Sanitised_String + Input_String[Counter];
-                    }
-                }
-                if (Sanitised_String == "") {
-                    Sanitised_String = "0";
-                }
-                var Difference = Infinity;
-                var Selected_Depth = 0;
-                var Selected_Interval = 0;
-                for (var Counter = 0; Counter < Valid_Depths.length; Counter++) {
-                    if (Math.abs(Number(Sanitised_String) - Valid_Depths[Counter]) < Difference) {
-                        Difference = Math.abs(Number(Sanitised_String) - Valid_Depths[Counter]);
-                        Selected_Depth = Valid_Depths[Counter];
-                        Selected_Interval = Counter;
-                    }
-                }
-                Global_Depth = Selected_Depth;
-                Global_Selected_Interval = Selected_Interval;
-                Recalculate_Yields();
-                document.getElementById("Depth_Label").innerText = "Depth — " + String(Selected_Depth) + "m";
-                document.getElementById("Depth_Input").value = String(Selected_Depth) + "m";
+            }
+            Global_Depth = Selected_Depth;
+            Global_Selected_Interval = Selected_Interval;
+            Recalculate_Yields();
+            document.getElementById("Depth_Label").innerHTML = "Depth — " + String(Selected_Depth) + "m";
+            document.getElementById("Depth_Input").value = String(Selected_Depth) + "m";
+        }
+        document.getElementById("Depth_Input").addEventListener('blur', calculateDepth);
+        document.body.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+                calculateDepth();
+                document.getElementById("Depth_Input").blur();
+            }
+        });
+        document.querySelectorAll(".Dropdown_Container button").forEach(function (e) {
+            e.addEventListener("click", function () {
+                calculateDepth();
             });
-        </script>
-    </body>
+        });
+        calculateDepth();
+    </script>
+</body>
+
 </html>
