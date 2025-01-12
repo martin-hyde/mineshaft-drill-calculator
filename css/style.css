@@ -2,6 +2,7 @@ html {
     min-height: 100vh;
     background-color: rgb(39, 41, 49);
     color: rgb(206, 220, 236);
+    overflow-x: hidden;
 }
 
 /* next_g was here */
@@ -11,19 +12,50 @@ body {
     flex-direction: column;
 }
 
+@media (max-width: 600px) {
+    .boxes {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .settings { 
+        min-width: fit-content !important;
+        padding: 2% 10% !important;
+    }
+
+    .disclaimer {
+        padding: 14px 0 !important;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 5vw;
+    }
+
+    #Drill_Image {
+        width: 12vw !important;
+    }
+}
+
+.setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .boxes {
     width: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: center;
     transition: 0.15s;
-} 
+}
 
 .settings {
     margin: 16px;
     margin-left: auto;
     margin-right: auto;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     width: fit-content;
     padding: 10px;
     border-radius: 16px;
@@ -55,8 +87,8 @@ body {
 }
 
 .disclaimer {
-    border-top: 2px solid rgba(0,0,0,0.25);
-    background: rgba(0,0,0,0.15);
+    border-top: 2px solid rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.15);
     text-align: center;
     font-family: monospace;
     color: white;
@@ -92,7 +124,8 @@ h1 {
     filter: drop-shadow(0 0 6px rgba(64, 109, 231, 0.33));
 }
 
-.settings, .information {
+.settings,
+.information {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +138,9 @@ h1 {
     width: 72px;
 }
 
-#First_Latent_Breaker, #Second_Latent_Breaker, #Third_Latent_Breaker {
+#First_Latent_Breaker,
+#Second_Latent_Breaker,
+#Third_Latent_Breaker {
     display: none;
 }
 
@@ -128,8 +163,8 @@ h1 {
     font-weight: 600;
     width: 50px;
     text-align: center;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     color: white;
     border-radius: 4px;
     padding: 4px;
@@ -168,7 +203,7 @@ h1 {
     justify-content: center;
     font-family: 'Trebuchet MS';
     font-size: 120%;
-    border-bottom: 2px solid rgba(255,255,255,0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
     text-align: center;
 }
 
@@ -182,7 +217,7 @@ h1 {
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-    -ms-user-select: none; 
+    -ms-user-select: none;
     left: 60%;
     font-family: 'Trebuchet MS';
     font-size: 90%;
@@ -202,9 +237,9 @@ h1 {
     width: 100%;
     border: none;
     cursor: pointer;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     margin: 2px;
-    border: 2px solid rgba(255,255,255,0.15);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 6px;
     height: 24px;
     transition: 0.15s;
@@ -214,8 +249,8 @@ h1 {
 }
 
 .Dropdown_Button:hover {
-    background: rgba(255,255,255,0.3);
-    border: 2px solid rgba(255,255,255,0);
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0);
 }
 
 .Dropdown_Container {
@@ -274,7 +309,7 @@ h1 {
 }
 
 .none {
-    border-color: rgba(255,255,255,0.25) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 .Dropdown_Container button {
@@ -293,7 +328,7 @@ h1 {
 }
 
 .Dropdown_Container button:not(.none) {
-    border-color: rgba(0,0,0,0.25) !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
 }
 
 .Dropdown_Container button:hover {
