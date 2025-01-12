@@ -23,26 +23,26 @@
                     Copper</button>
                 <div id="Drillbit_Content" class="Dropdown_Container">
                     <button class="copper" onclick="Swap_Drillbit(0)">Copper</a>
-                        <button class="iron" onclick="Swap_Drillbit(1)">Iron</a>
-                            <button class="steel" onclick="Swap_Drillbit(2)">Steel</a>
-                                <button class="tungsten" onclick="Swap_Drillbit(3)">Tungsten</a>
+                    <button class="iron" onclick="Swap_Drillbit(1)">Iron</a>
+                    <button class="steel" onclick="Swap_Drillbit(2)">Steel</a>
+                    <button class="tungsten" onclick="Swap_Drillbit(3)">Tungsten</a>
                 </div>
             </div>
             <div id="Acid_Select" class="Dropdown_Box">
                 <button id="Acid_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(1)">Acid — None</button>
                 <div id="Acid_Content" class="Dropdown_Container none">
                     <button class="none" onclick="Swap_Acid(0)">None</a>
-                        <button class="water" onclick="Swap_Acid(1)">Water</a>
-                            <button class="acetic" onclick="Swap_Acid(2)">Acetic</a>
-                                <button class="sulphuric" onclick="Swap_Acid(3)">Sulphuric</a>
-                                    <button class="hydrochloric" onclick="Swap_Acid(4)">Hydrochloric</a>
+                    <button class="water" onclick="Swap_Acid(1)">Water</a>
+                    <button class="acetic" onclick="Swap_Acid(2)">Acetic</a>
+                    <button class="sulphuric" onclick="Swap_Acid(3)">Sulphuric</a>
+                    <button class="hydrochloric" onclick="Swap_Acid(4)">Hydrochloric</a>
                 </div>
             </div>
             <div id="Oil_Select" class="Dropdown_Box">
                 <button id="Oil_Button" class="Dropdown_Button" onclick="Toggle_Dropdown(2)">Oil — None</button>
                 <div id="Oil_Content" class="Dropdown_Container none">
                     <button class="none" onclick="Swap_Oil(0)">None</a>
-                        <button class="machineoil" onclick="Swap_Oil(1)">Machine Oil</a>
+                    <button class="machineoil" onclick="Swap_Oil(1)">Machine Oil</a>
                 </div>
             </div>
         </div>
@@ -57,8 +57,8 @@
             <label class="Title">Drillhead Info</label>
             <label id="Deterioration_Label" class="Drillbit_Info">Deterioration Rate: 0.0037%/s</label>
             <label id="Lifetime_Label" class="Drillbit_Info">Lifetime: 7.5h</label>
+            <label id="Replacement_Label" class="Drillbit_Info">Replacement Time: 16s</label>
             <label id="Cycle_Label" class="Drillbit_Info">Cycle Time: 7.5h</label>
-            <label id="Cycling_Label" class="Drillbit_Info">Replacement Time: 16s</label>
             <label id="Efficiency_Label" class="Drillbit_Info">Efficiency: <b
                     style="color: rgb(5.967000000000022, 249.033, 0);">97.66%</b></label>
             <br>
@@ -71,7 +71,7 @@
             <label id="Oil_Label" class="Drillbit_Info">Machine Oil: 0L/s (average), 0L/s (active)</label>
             <label id="Power_Label" class="Drillbit_Info">Power: 3.1MMF/s (average), 3.1MMF/s (active)</label>
             <br>
-            <label id="Output_Title" class="Title">Outputs</label>
+            <label id="Output_Title" class="Title">Output Info</label>
             <label id="First_Output_Label" class="Output_Label">Rich Soil: 1.1u/s (average), 1.1u/s (active)</label>
             <label id="Second_Output_Label" class="Output_Label">Soil: 3.3u/s (average), 3.3u/s (active)</label>
             <label id="Third_Output_Label" class="Output_Label">Gravel: 3.3u/s (average), 3.3u/s (active)</label>
@@ -91,23 +91,20 @@
         };
         function calculateDepth() {
             var Valid_Depths = [100, 300]
-            for (var Counter = 3; Counter < 7; Counter++) {
-                Valid_Depths.push(Counter * 300);
+            for (var Counter = 900; Counter <= 1800; Counter += 300) {
+                Valid_Depths.push(Counter);
             }
-            for (var Counter = 10; Counter < 41; Counter++) {
-                Valid_Depths.push(Counter * 200);
+            for (var Counter = 2000; Counter <= 8000; Counter += 200) {
+                Valid_Depths.push(Counter);
             }
             var Input_String = document.getElementById("Depth_Input").value;
             var Sanitised_String = "";
-            var Finalised_String = "";
             for (var Counter = 0; Counter < Input_String.length; Counter++) {
                 if (!isNaN(Input_String[Counter]) && Input_String[Counter].trim() != '') {
-                    Sanitised_String = Sanitised_String + Input_String[Counter];
+                    Sanitised_String += Input_String[Counter];
                 }
             }
-            if (Sanitised_String == "") {
-                Sanitised_String = "0";
-            }
+            if (Sanitised_String == "") Sanitised_String = "0";
             var Difference = Infinity;
             var Selected_Depth = 0;
             var Selected_Interval = 0;
