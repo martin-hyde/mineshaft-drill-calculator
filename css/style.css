@@ -138,12 +138,6 @@ h1 {
     width: 72px;
 }
 
-#First_Latent_Breaker,
-#Second_Latent_Breaker,
-#Third_Latent_Breaker {
-    display: none;
-}
-
 .depth_section {
     display: flex;
     align-items: center;
@@ -349,4 +343,9 @@ h1 {
 .show {
     opacity: 1;
     visibility: visible !important;
+}
+
+#Depth_Content {
+    max-height: 50vh;
+    overflow-y: scroll;
 }
