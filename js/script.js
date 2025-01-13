@@ -1,15 +1,14 @@
 var Global_Drillbit = 0; //drillbit index
 var Global_Acid = 0; //acid index
 var Global_Oil = 0; //oil index
-var Global_Depth = 100; //depth
 var Global_Selected_Interval = 0; //depth index
 var Unit = "s"; //unit for time
 var Sig_figs = 3; //number of siginificant figures in displayed values
 const Drillbit_Names = ["Copper", "Iron", "Steel", "Tungsten"];
 const Acid_Names = ["None", "Water", "Acetic", "Sulfuric", "Hydrochloric"];
-const Oil_Names = ["None", "Machine Oil"];
-const Menu_Identifiers = ["Drillbit_Content", "Acid_Content", "Oil_Content"];
-const Breaker_Identifiers = ["First_Latent_Breaker", "Second_Latent_Breaker", "Third_Latent_Breaker"];
+const Oil_Names = ["None", "Machine Oil"]
+const Depths = [100, 300, 900, 1200, 1500, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200, 4400, 4600, 4800, 5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000];
+const Menu_Identifiers = ["Drillbit_Content", "Acid_Content", "Oil_Content", "Depth_Content"];
 const Output_Labels = ["First_Output_Label", "Second_Output_Label", "Third_Output_Label", "Fourth_Output_Label"];
 const //item names
     Soil = "🌱 Soil",
@@ -108,7 +107,7 @@ const Yields = [ //item yields for each depth
 ];
 
 function Simplify_Time(Time) { 
-    Unit = "s";
+    var Unit = "s";
     if (Time > 60) {
         Time /= 60;
         Unit = "m";
@@ -121,7 +120,7 @@ function Simplify_Time(Time) {
             }
         }
     }
-    return Time;
+    return Truncate(Time) + Unit;
 }
 
 //rounds values to the given number of significant figures
@@ -131,8 +130,8 @@ function Truncate(Number) {
     return String(Math.round(Number * scale) / scale);
 }
 
-function Toggle_Dropdown(Identifier) {
-    document.getElementById(Menu_Identifiers[Identifier]).classList.toggle("show");
+function Toggle_Dropdown(Identifier) { //identifier -1 closes all menus
+    if (Identifier != -1) document.getElementById(Menu_Identifiers[Identifier]).classList.toggle("show");
     for (var Counter = 0; Counter < Menu_Identifiers.length; Counter++) {
         if (Counter != Identifier && document.getElementById(Menu_Identifiers[Counter]).classList.contains("show")) {
             document.getElementById(Menu_Identifiers[Counter]).classList.remove("show");
@@ -164,10 +163,19 @@ function Swap_Oil(Oil) {
     Recalculate_Yields();
 }
 
+function Swap_Depth(Interval) {
+    Global_Selected_Interval = Interval;
+    document.getElementById("Depth_Button").classList = "Dropdown_Button " + "depth"+Depths[Interval]; //depth100, depth300, ..., depth8000
+    document.getElementById("Depth_Button").innerHTML = "Depth — " + Depths[Interval] + "m";
+    Toggle_Dropdown(3);
+    Recalculate_Yields();
+}
+
 function Recalculate_Yields() {
     //drillhead info
-    var Functional_Depth = Functional_Depth == 100 ? 300 : Global_Depth;
-    var Drillbit_Multiplier = 0;
+    var Functional_Depth = Depths[Math.max(Global_Selected_Interval, 1)];
+
+    var Drillbit_Multiplier;
     switch (Global_Drillbit) {
         case 0:
             Drillbit_Multiplier = Functional_Depth / 150;
@@ -181,10 +189,9 @@ function Recalculate_Yields() {
         case 3:
             Drillbit_Multiplier = Functional_Depth ** 0.25 * 0.005;
             break;
-        default:
-            break;
     }
-    var Acid_Multiplier = 0;
+
+    var Acid_Multiplier;
     switch (Global_Acid) {
         case 0:
             Acid_Multiplier = Functional_Depth ** 2 / 900000;
@@ -199,31 +206,34 @@ function Recalculate_Yields() {
             Acid_Multiplier = Functional_Depth ** 0.25 * 0.09;
             break;
         case 4:
-            if (Functional_Depth < 6000)
-                Acid_Multiplier = Functional_Depth ** (1.5 - Functional_Depth * 0.00005) * 0.000013 + Functional_Depth ** 3 * 10 ** -13.3 * 4.3875;
-            else
+            Acid_Multiplier = Functional_Depth < 6000 ?
+                Functional_Depth ** (1.5 - Functional_Depth * 0.00005) * 0.000013 + Functional_Depth ** 3 * 10 ** -13.3 * 4.3875 :
                 Acid_Multiplier = Functional_Depth ** 0.25 * 0.09;
             break;
-        default:
-            break;
     }
+
     var Deterioration_Rate = 0.5 * Drillbit_Multiplier * Acid_Multiplier * (1 + Global_Oil / 10);
     var Lifetime = Math.ceil(100 / Deterioration_Rate);
-    var ReplacementTime = 2 * Global_Depth / (50 * (Global_Oil + 1)) + 12;
+    var ReplacementTime = 2 * Depths[Global_Selected_Interval] / (50 * (Global_Oil + 1)) + 12;
     var CycleTime = ReplacementTime + Lifetime;
     var Efficiency = Lifetime / CycleTime;
+
     document.getElementById("Deterioration_Label").innerHTML = "⛓️‍💥 Deterioration Rate: " + Truncate(Deterioration_Rate) + "%/s";
-    document.getElementById("Lifetime_Label").innerHTML = "🕗 Lifetime: " + Truncate(Simplify_Time(Lifetime)) + Unit;
-    document.getElementById("Replacement_Label").innerHTML = "🔄 Replacement Time: " + Truncate(Simplify_Time(ReplacementTime)) + Unit;
-    document.getElementById("Cycle_Label").innerHTML = "⏳ Cycle Time: " + Truncate(Simplify_Time(CycleTime)) + Unit;
+    document.getElementById("Lifetime_Label").innerHTML = "🕗 Lifetime: " + Simplify_Time(Lifetime);
+    document.getElementById("Replacement_Label").innerHTML = "🔄 Replacement Time: " + Simplify_Time(ReplacementTime);
+    document.getElementById("Cycle_Label").innerHTML = "⏳ Cycle Time: " + Simplify_Time(CycleTime);
     document.getElementById("Efficiency_Label").innerHTML = `🔧 Efficiency: <b style='color: rgb(${(1 - Efficiency) * 255}, ${Efficiency * 255}, 0);'>` + Truncate(Efficiency * 100) + "%</b>";
     
     //consumption info
     var Drillbit_Consumption = 1 / CycleTime;
-    var Second_Drillbit_Consumption = 1 / Lifetime;
+    var Active_Drillbit_Consumption = 1 / Lifetime;
+
     var Drillbit_Text = Drillbit_Names[Global_Drillbit];
-    var Drillbit_Material = 700;
+    var Drillbit_Material;
     switch (Global_Drillbit) {
+        case 0:
+            Drillbit_Material = 700;
+            break;
         case 1:
             Drillbit_Material = 2100;
             break;
@@ -233,16 +243,19 @@ function Recalculate_Yields() {
         case 3:
             Drillbit_Material = 1275;
             break;
-        default: 
-            break;
     }
-    var Second_Drillbit_Material = Drillbit_Material * Second_Drillbit_Consumption;
+    var Active_Drillbit_Material = Drillbit_Material * Active_Drillbit_Consumption;
     Drillbit_Material = Drillbit_Material * Drillbit_Consumption;
-    document.getElementById("Drillbit_Label").innerHTML = `<div class='${Drillbit_Text.toLowerCase()} squareDisplay drill'></div>` + Drillbit_Text + " Drillhead: " + Truncate(Drillbit_Consumption) + "u/s (average), " + Truncate(Second_Drillbit_Consumption) + "u/s (active)";
-    document.getElementById("Materials_Label").innerHTML = `<div class='${Drillbit_Text.toLowerCase()} squareDisplay ingot'></div>` + Drillbit_Text + ` ${Drillbit_Text == Drillbit_Names[3] ? "Carbide Plate" : "ingot"}: ` + Truncate(Drillbit_Material) + "u/s (average), " + Truncate(Second_Drillbit_Material) + "u/s (active)";
-    var Acid_Text = "<div style='display: inline; margin-left: 2px;'></div>🗙<div style='display: inline; margin-right: 2px;'></div> No Acid";
-    var Acid_Amount = 0;
+    document.getElementById("Drillbit_Label").innerHTML = `<div class='${Drillbit_Text.toLowerCase()} squareDisplay drill'></div>` + Drillbit_Text + " Drillhead: " + Truncate(Drillbit_Consumption) + "u/s (average), " + Truncate(Active_Drillbit_Consumption) + "u/s (active)";
+    document.getElementById("Materials_Label").innerHTML = `<div class='${Drillbit_Text.toLowerCase()} squareDisplay ingot'></div>` + Drillbit_Text + ` ${Drillbit_Text == Drillbit_Names[3] ? "Carbide Plate" : "ingot"}: ` + Truncate(Drillbit_Material) + "u/s (average), " + Truncate(Active_Drillbit_Material) + "u/s (active)";
+    
+    var Acid_Text;
+    var Acid_Amount;
     switch (Global_Acid) {
+        case 0:
+            Acid_Text = "<div style='display: inline; margin-left: 2px;'></div>🗙<div style='display: inline; margin-right: 2px;'></div> No Acid";
+            Acid_Amount = 0;
+            break;
         case 1:
             Acid_Text = "💧 Water";
             Acid_Amount = 10;
@@ -259,18 +272,19 @@ function Recalculate_Yields() {
             Acid_Text = "<div style='display: inline; filter: hue-rotate(71deg) saturate(0.4) brightness(2.5);'>🩸</div> Hydrochloric Acid";
             Acid_Amount = 1.5;
             break;
-        default:
-            break;
     }
     document.getElementById("Acid_Label").innerHTML = Acid_Text + ": " + Truncate(Acid_Amount * Efficiency) + "L/s (average), " + Acid_Amount + "L/s (active)";
-    var oilText = "";
-    if (Global_Oil == 0) {
-        oilText = "<div style='display: inline; margin-left: 2px;'></div>🗙<div style='display: inline; margin-right: 2px;'></div> No Oil: ";
+    
+    var oilText;
+    switch(Global_Oil) {
+        case 0:
+            oilText = "<div style='display: inline; margin-left: 2px;'></div>🗙<div style='display: inline; margin-right: 2px;'></div> No Oil: ";
+            break;
+        case 1:
+            oilText = "<div style='display: inline; filter: hue-rotate(65deg) brightness(3.5);'>🩸</div> Machine Oil: ";
+            break;
     } 
-    else {
-        oilText = "<div style='display: inline; filter: hue-rotate(65deg) brightness(3.5);'>🩸</div> Machine Oil: ";
-    }
-    document.getElementById("Oil_Label").innerHTML = oilText + Truncate((Global_Oil * 2) * ((CycleTime - 12) / CycleTime)) + "L/s (average), " + String(Global_Oil * 2) + "L/s (active)";
+    document.getElementById("Oil_Label").innerHTML = oilText + Truncate(Global_Oil * 2 * (CycleTime - 12) / CycleTime) + "L/s (average), " + Global_Oil * 2 + "L/s (active)";
     document.getElementById("Power_Label").innerHTML = "⚡ Power: " + Truncate((3.1 * Lifetime + 0.1 * ReplacementTime) / CycleTime) + "MMF/s (average), 3.1MMF/s (active)";
     
     //output info
