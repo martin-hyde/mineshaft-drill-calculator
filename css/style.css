@@ -1,7 +1,7 @@
 html {
     min-height: 100vh;
-    background-color: rgb(39, 41, 49);
-    color: rgb(206, 220, 236);
+    background-color: #282828;
+    color: #eddbb2;
     overflow-x: hidden;
 }
 
@@ -55,7 +55,7 @@ body {
     margin: 16px;
     margin-left: auto;
     margin-right: auto;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(235, 219, 178,0.15);
     width: fit-content;
     padding: 10px;
     border-radius: 16px;
@@ -108,7 +108,7 @@ body {
 }
 
 .disclaimer a {
-    color: rgb(241, 138, 241);
+    color: #458588;
 }
 
 h1 {
@@ -121,7 +121,7 @@ h1 {
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    filter: drop-shadow(0 0 6px rgba(64, 109, 231, 0.33));
+    filter: drop-shadow(0 0 6px rgba(235, 219, 178, 0.33));
 }
 
 .settings,
@@ -149,7 +149,7 @@ h1 {
     font-weight: 500;
     font-size: 90%;
     margin-right: 4px;
-    color: white;
+    color: #eddbb2;
 }
 
 #Depth_Input {
@@ -157,9 +157,9 @@ h1 {
     font-weight: 600;
     width: 50px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: rgba(235, 219, 178,0.15);
+    border: 2px solid rgba(235, 219, 178,0.15)
+    color: #eddbb2;
     border-radius: 4px;
     padding: 4px;
     font-size: 16px;
@@ -231,20 +231,20 @@ h1 {
     width: 100%;
     border: none;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(235, 219, 178,0.15);
     margin: 2px;
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(235, 219, 178,0.15);
     border-radius: 6px;
     height: 24px;
     transition: 0.15s;
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
-    color: #ffffff;
+    color: #eddbb2;
 }
 
 .Dropdown_Button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0);
+    background: rgba(235, 219, 178,0.3);
+    border: 2px solid rgba(235, 219, 178,0);
 }
 
 .Dropdown_Container {
@@ -303,7 +303,7 @@ h1 {
 }
 
 .none {
-    border-color: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(235, 219, 178,0.25) !important;
 }
 
 .Dropdown_Container button {
@@ -316,13 +316,13 @@ h1 {
     border: 2px solid;
     border-top: none;
     cursor: pointer;
-    color: white;
-    background: #474950;
+    color: #eddbb2;
+    background: #3c3836
     transition: 0.15s;
 }
 
 .Dropdown_Container button:not(.none) {
-    border-color: rgba(0, 0, 0, 0.25) !important;
+    border-color: rgba(40,40,40,0.25) !important;
 }
 
 .Dropdown_Container button:hover {
